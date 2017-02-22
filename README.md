@@ -1,5 +1,104 @@
 # FireBase (Qt)
 
+FireBase is the mobile platform which allows to develop high-quality applications quickly. It is necessary to have the account FireBase for use of library.
+
+### Facility
+      Send single data
+      Send data objects
+      Edit data
+      Delete data
+      Rewrite data
+      Obtain data
+      Obtain the sorted data
+
+
+*Data access makes only in one parameter. It is technical aspect of FireBase. At the time of writing this library their answer about of a possibility of data access according to some data was the following:*
+
+Thank you for your patience. Like you, there are other developers requesting for these features. 
+In fact, there's already an existing internal request to address this functionality. But as of the moment, no public release dates or details we can share.
+
+#### Installation
+
+Installation of library is standard installation of third-party libraries in Qt. It is necessary to download sources and to bring together library under your own system. Then following documentation of Qt you connect it to your own project.
+
+Example of a code:
+```с++
+    QString http = "https://test.firebaseio.com/";
+    QString token = "SECRET KEY";
+    FireBase firebase(http, token);
+
+```
+### Data record
+
+#### This method will write down data with own key from FireBase.
+
+```c++
+    QString str = "Money";
+    QJsonObject object;
+    object["value"] = 25345685;
+    object["story"] = "many";
+    firebase.child(str)->value(object)->push();
+
+```
+
+#### This method will write down data using YOUR key.
+```c++
+    QString str = "MY_KEY/Money";
+    QJsonObject object;
+    object["value"] = 25345685;
+    object["story"] = "many";
+    firebase.child(str)->value(object)->set();
+
+```
+#### Data editing
+```c++
+    QString str = "Money";
+    QJsonObject object;
+    object["value"] = 25;    
+    firebase.child(str)->value(object)->update();
+
+```
+#### Data deletion
+```c++
+    QString str = "Money";
+    firebase.child(str)->remove();
+```
+
+### Getting data
+
+```c++
+    QString str = "Money";
+    QString data = firebase.child(str)->get();
+```
+
+### Sorting
+For sorting of data it is necessary to create rules on the party of FireBase.
+
+- *orderBy* - the parameter by which we sort
+- *startAt* - for example, from 100 and above
+- *limitToFirst* - for example, the first 20 sorted
+- *endAt* - for example to 100 and below
+- *limitToLast* - the last 20 sorted
+
+Example of a code when it is necessary to receive the first 100 records on the “value” parameter a meaning of which not less than 10 000
+```c++
+    QString str = "Money";
+    QString orderBy = "value";
+    QString data = firebase.child(str)->orderBy(orderBy)->startAt(10000)->limitToFirst(100)->get();
+```
+Example of a code when it is necessary to receive the last 100 records on the “value” parameter a meaning of which less than 10 000
+```c++
+    QString str = "Money";
+    QString orderBy = "value";
+    QString data = firebase.child(str)->orderBy(orderBy)->endAt(10000)->limitToLast(100)->get();
+```
+
+### LECENSE
+See LICENSE.txt for details.
+
+
+# RU
+
 Firebase представляет собой мобильную платформу, которая позволяет быстро разрабатывать высококачественные приложения.
 Для использования библиотеки необходимо иметь аккаунт Firebase.
 
@@ -98,4 +197,3 @@ In fact, there's already an existing internal request to address this functional
 
 ### LECENSE
 See LICENSE.txt for details.
-
