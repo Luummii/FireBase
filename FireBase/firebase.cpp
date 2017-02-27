@@ -17,6 +17,11 @@ FireBase::FireBase(QJsonObject &object) :document(object)
 
 }
 
+FireBase::FireBase(QJsonDocument &document) :document(document)
+{
+
+}
+
 FireBase *FireBase::child(QString &childName)
 {
     HTTP.clear();
@@ -32,6 +37,14 @@ FireBase *FireBase::value(QJsonObject &object)
     FireBase *firebase = new FireBase(object);
     connect(this, &FireBase::destroyFire,
             firebase, &FireBase::deleteLater);    
+    return firebase;
+}
+
+FireBase *FireBase::value(QJsonDocument &document)
+{
+    FireBase *firebase = new FireBase(document);
+    connect(this, &FireBase::destroyFire,
+            firebase, &FireBase::deleteLater);
     return firebase;
 }
 

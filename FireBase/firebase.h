@@ -27,6 +27,7 @@ public:
     explicit FireBase(QObject *parent = 0);
     explicit FireBase(QString &http, const QString &token);
     explicit FireBase(QJsonObject &object);
+    explicit FireBase(QJsonDocument &document);
 
 public:
     void push();
@@ -38,6 +39,7 @@ public:
 public:
     FireBase *child(QString &childName);
     FireBase *value(QJsonObject &object);
+    FireBase *value(QJsonDocument &document);
 
 
     FireBase *orderBy(QString &orderBy);
