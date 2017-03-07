@@ -35,5 +35,7 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
-./firebase-Desktop-Release
-/firebase-Desktop-Release/
+./firebase-library-Android_5_7_1
+/firebase-library-Android_5_7_1/
+./firebase-library-Desktop_5_7_1
+/firebase-library-Desktop_5_7_1/
