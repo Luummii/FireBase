@@ -67,6 +67,8 @@ QString FireBase::get()
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     manager->get(request);
 
+    /*Can be made in a separate thread. Depends on your tasks
+      But you definitely have to wait.*/
     QEventLoop wait;
     connect(manager, &QNetworkAccessManager::finished,
             this, &FireBase::networkRequestResult);

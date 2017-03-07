@@ -1,6 +1,6 @@
 # FireBase (Qt)
 
-FireBase is the mobile platform which allows to develop high-quality applications quickly. It is necessary to have the account FireBase for use of library.
+FireBase is the mobile platform which allows to develop high-quality applications quickly. It is necessary to have the account FireBase for use of library. Version Qt 5.7.1
 
 ### Facility
       Send single data
@@ -100,7 +100,7 @@ See LICENSE.txt for details.
 # RU
 
 Firebase представляет собой мобильную платформу, которая позволяет быстро разрабатывать высококачественные приложения.
-Для использования библиотеки необходимо иметь аккаунт Firebase.
+Для использования библиотеки необходимо иметь аккаунт Firebase. Версия Qt 5.7.1
 
 ### Возможности
       Отправлятть единичные данные

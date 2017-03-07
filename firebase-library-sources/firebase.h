@@ -1,7 +1,6 @@
 #ifndef FIREBASE_H
 #define FIREBASE_H
 
-
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -11,7 +10,6 @@
 #include <QBuffer>
 #include <QDebug>
 #include <QUrl>
-
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -40,8 +38,6 @@ public:
     FireBase *child(QString &childName);
     FireBase *value(QJsonObject &object);
     FireBase *value(QJsonDocument &document);
-
-
     FireBase *orderBy(QString &orderBy);
     FireBase *startAt(int start_at);
     FireBase *limitToFirst(int limit_to_first);
@@ -57,7 +53,6 @@ private:
 signals:
     void destroyFire();
     void sendData(QJsonObject &root);
-
 
 private slots:
     void connectFireBase(QByteArray method);
