@@ -9,43 +9,26 @@ FireBase::FireBase(QObject *parent) : QObject(parent)
 FireBase::FireBase(QString &http, const QString &token)
 {
     urlFireBase = http;
-    this->token = token;    
-}
-
-FireBase::FireBase(QJsonObject &object) :document(object)
-{
-
-}
-
-FireBase::FireBase(QJsonDocument &document) :document(document)
-{
-
+    this->token = token;
 }
 
 FireBase *FireBase::child(QString &childName)
 {
     HTTP.clear();
-    HTTP.append(urlFireBase).append(childName).append(".json?auth=").append(token);    
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    HTTP.append(urlFireBase).append(childName).append(".json?auth=").append(token);
+    return this;
 }
 
 FireBase *FireBase::value(QJsonObject &object)
 {
-    FireBase *firebase = new FireBase(object);
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);    
-    return firebase;
+    document.setObject(object);
+    return this;
 }
 
 FireBase *FireBase::value(QJsonDocument &document)
-{
-    FireBase *firebase = new FireBase(document);
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+{    
+    this->document = document;
+    return this;
 }
 
 void FireBase::push(){ connectFireBase(QByteArray("POST"));}
@@ -75,8 +58,6 @@ QString FireBase::get()
     connect(manager, &QNetworkAccessManager::finished,
             manager, &QNetworkAccessManager::deleteLater);
     connect(manager, &QNetworkAccessManager::finished,
-            this, &FireBase::destroyFireSlot);
-    connect(manager, &QNetworkAccessManager::finished,
             &wait, &QEventLoop::quit);
     QTimer::singleShot(10000, &wait, &QEventLoop::quit);
     wait.exec();
@@ -103,58 +84,41 @@ void FireBase::connectFireBase(QByteArray method)
             buffer, &QBuffer::deleteLater);
     connect(manager, &QNetworkAccessManager::finished,
             manager, &QNetworkAccessManager::deleteLater);
-    connect(manager, &QNetworkAccessManager::finished,
-            this, &FireBase::destroyFireSlot);
 }
 
 FireBase *FireBase::orderBy(QString &orderBy)
 {
     QString str = QString("&orderBy=%22%1%22").arg(orderBy);
     HTTP.append(str);
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    return this;
 }
 
 FireBase *FireBase::startAt(int start_at)
 {
     QString str = QString("&startAt=%1").arg(start_at);
-    HTTP.append(str);
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    HTTP.append(str);    
+    return this;
 }
 
 FireBase *FireBase::limitToFirst(int limit_to_first)
 {    
     QString str = QString("&limitToFirst=%1").arg(limit_to_first);
-    HTTP.append(str);
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    HTTP.append(str);    
+    return this;
 }
 
 FireBase *FireBase::endAt(int end_at)
 {
     QString str = QString("&endAt=%1").arg(end_at);
-    HTTP.append(str);
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    HTTP.append(str);    
+    return this;
 }
 
 FireBase *FireBase::limitToLast(int limit_to_last)
 {
     QString str = QString("&limitToLast=%1").arg(limit_to_last);
-    HTTP.append(str);
-    FireBase *firebase = new FireBase();
-    connect(this, &FireBase::destroyFire,
-            firebase, &FireBase::deleteLater);
-    return firebase;
+    HTTP.append(str);    
+    return this;
 }
 
 void FireBase::networkRequestResult(QNetworkReply *reply)
@@ -162,9 +126,4 @@ void FireBase::networkRequestResult(QNetworkReply *reply)
     QString result = (QString)reply->readAll();
     this->result = result;
     reply->deleteLater();
-}
-
-void FireBase::destroyFireSlot()
-{
-    emit destroyFire();
 }

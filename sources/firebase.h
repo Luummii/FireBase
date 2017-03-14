@@ -15,8 +15,6 @@
 #include <QJsonDocument>
 #include <QJsonValue>
 
-static QString HTTP = "";
-
 class FireBase : public QObject
 {
     Q_OBJECT
@@ -24,8 +22,6 @@ class FireBase : public QObject
 public:
     explicit FireBase(QObject *parent = 0);
     explicit FireBase(QString &http, const QString &token);
-    explicit FireBase(QJsonObject &object);
-    explicit FireBase(QJsonDocument &document);
 
 public:
     void push();
@@ -48,38 +44,15 @@ private:
     QString urlFireBase = "";
     QString token = "";
     QString result = "";
+    QString HTTP = "";
     QJsonDocument document;
 
 signals:
-    void destroyFire();
     void sendData(QJsonObject &root);
 
 private slots:
     void connectFireBase(QByteArray method);
     void networkRequestResult(QNetworkReply *reply);
-    void destroyFireSlot();
-
-
-
-
-
-
-
-
-
-
-
-
-// public:
-//    void startToFirst(QString parent, QString order, int startAt, int limitToFirst);
-
-//private:
-//    void __PUSH(const QByteArray method, QUrl url, QJsonDocument document);
-//    void _PUSH(QUrl url);
-
-//private slots:
-//    void onResult(QNetworkReply *reply);
-
 };
 
 
